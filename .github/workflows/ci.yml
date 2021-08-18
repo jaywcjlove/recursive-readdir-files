@@ -1,4 +1,4 @@
-name: Build & Deploy
+name: Build & Test
 on:
   push:
     branches:
@@ -8,7 +8,7 @@ env:
   SKIP_PREFLIGHT_CHECK: true
 
 jobs:
-  Build Test:
+  Build:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
