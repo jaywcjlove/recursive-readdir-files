@@ -1,7 +1,7 @@
 recursive-readdir-files
 ---
 
-[![Coverage Status](https://coveralls.io/repos/github/jaywcjlove/recursive-readdir-files/badge.svg?branch=main)](https://coveralls.io/github/jaywcjlove/recursive-readdir-files?branch=main) [![npm version](https://img.shields.io/npm/v/@uiw/react-md-editor.svg)](https://www.npmjs.com/package/@uiw/react-md-editor)
+[![Coverage Status](https://coveralls.io/repos/github/jaywcjlove/recursive-readdir-files/badge.svg?branch=main)](https://coveralls.io/github/jaywcjlove/recursive-readdir-files?branch=main) [![npm version](https://img.shields.io/npm/v/recursive-readdir-files.svg)](https://www.npmjs.com/package/recursive-readdir-files)
 
 Node.js module to list all files in a directory or any subdirectories.
 
