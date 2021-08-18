@@ -8,7 +8,7 @@ env:
   SKIP_PREFLIGHT_CHECK: true
 
 jobs:
-  build-deploy:
+  Build Test:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
