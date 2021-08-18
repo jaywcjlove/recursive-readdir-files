@@ -1,6 +1,8 @@
 recursive-readdir-files
 ---
 
+[![Coverage Status](https://coveralls.io/repos/github/jaywcjlove/recursive-readdir-files/badge.svg?branch=main)](https://coveralls.io/github/jaywcjlove/recursive-readdir-files?branch=main)
+
 Node.js module to list all files in a directory or any subdirectories.
 
 ## Installation
