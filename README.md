@@ -30,6 +30,11 @@ recursiveReaddirFiles(process.cwd(), { ignored: /\/(node_modules|\.git)/ })
 export interface RecursiveReaddirFilesOptions {
     ignored?: RegExp;
 }
+```
+
+## Result
+
+```ts
 /**
  * IFileDirStat
  * @param {string} name E.g: `sum.ts`;
