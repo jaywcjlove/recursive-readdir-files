@@ -19,16 +19,18 @@ export interface RecursiveReaddirFilesOptions {
   isDirectory?: boolean;
 }
 
-let files: IFileDirStat[] = [];
+export default function recursiveReaddirFiles(rootPath: string, options: RecursiveReaddirFilesOptions = {}): Promise<IFileDirStat[]> {
+  return getFiles(rootPath, options);
+}
 
-export default async function recursiveReaddirFiles(rootPath: string, options: RecursiveReaddirFilesOptions = {}): Promise<IFileDirStat[]> {
+async function getFiles(rootPath: string, options: RecursiveReaddirFilesOptions = {}, files: IFileDirStat[] = []): Promise<IFileDirStat[]> {
   const { ignored } = options;
   const filesData = await fs.promises.readdir(rootPath);
   const fileDir: IFileDirStat[] = filesData.map((file) => ({
     name: file,
     path: path.join(rootPath, file),
   })).filter(item => {
-    if (ignored && !ignored.test(item.path)) { 
+    if (!ignored || !ignored.test(item.path)) { 
       return true;
     }
     return false;
@@ -40,12 +42,12 @@ export default async function recursiveReaddirFiles(rootPath: string, options: R
       item.size = stat.size;
       item.ext = '';
       if (stat.isDirectory()) {
-        await recursiveReaddirFiles(item.path, options);
+        const arr = await getFiles(item.path, options);
+        files = files.concat(arr);
       } else if (stat.isFile()) {
         item.ext = await getExt(item.path);
         files.push(item);
       }
-      return item;
     }),
   );
   return files;

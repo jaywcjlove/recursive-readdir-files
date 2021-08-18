@@ -42,13 +42,19 @@ export interface RecursiveReaddirFilesOptions {
  * @param {string} outputPath E.g: `/basic/src/utils/sum.js`
  */
 export interface IFileDirStat {
-    name: string;
-    path: string;
-    ext?: string;
-    size?: number;
-    isDirectory?: boolean;
+  name: string;
+  path: string;
+  ext?: string;
+  size?: number;
+  isDirectory?: boolean;
 }
 export default function recursiveReaddirFiles(rootPath: string, options?: RecursiveReaddirFilesOptions): Promise<IFileDirStat[]>;
+/**
+ * Get ext
+ * @param {String} filePath `/a/b.jpg` => `jpg`
+ */
+export declare const getExt: (filePath: string) => string;
+
 ```
 
 ## License
