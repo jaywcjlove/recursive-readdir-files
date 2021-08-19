@@ -1,6 +1,6 @@
 {
   "name": "recursive-readdir-files",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Node.js module to list all files in a directory or any subdirectories.",
   "main": "lib/index.js",
   "scripts": {
