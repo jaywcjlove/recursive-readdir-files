@@ -29,6 +29,7 @@ jobs:
 
     - name: Look Changelog
       uses: jaywcjlove/changelog-generator@v1.4.3
+      id: changelog
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         filter-author: (jaywcjlove|小弟调调™|dependabot\[bot\]|Renovate Bot|renovate\-bot)
