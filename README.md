@@ -16,47 +16,66 @@ npm install recursive-readdir-files
 ```js
 const recursiveReaddirFiles = require("recursive-readdir-files");
 
-recursiveReaddirFiles(process.cwd(), { ignored: /\/(node_modules|\.git)/ })
-  .then((files) => {
-    // `files` is an array
-    console.log(files);
-  })
-  .catch((error) => {
-    console.error("something exploded", error);
-  });
+recursiveReaddirFiles(process.cwd(), {
+  ignored: /\/(node_modules|\.git)/
+})
+.then((files) => {
+  // `files` is an array
+  console.log(files);
+})
+.catch((error) => {
+  console.error("something exploded", error);
+});
 ```
 
 ## Options
 
 ```ts
 export interface RecursiveReaddirFilesOptions {
-    ignored?: RegExp;
+  /**
+   * Ignore files
+   * @example `/\/(node_modules|\.git)/`
+   */
+  ignored?: RegExp;
+  /**
+   * Specifies a list of `glob` patterns that match files to be included in compilation. 
+   * @example `/(\.json)$/`
+   */
+  include?: RegExp;
+  /**
+   * Specifies a list of files to be excluded from compilation.
+   * @example `/(package\.json)$/`
+   */
+  exclude?: RegExp;
 }
 ```
 
 ## Result
 
 ```ts
-/**
- * IFileDirStat
- * @param {string} name E.g: `sum.ts`;
- * @param {string} path E.g: `/basic/src/utils/sum.ts`
- * @param {string} outputPath E.g: `/basic/src/utils/sum.js`
- */
 export interface IFileDirStat {
+  /**
+   * E.g: `/a/sum.jpg` => `sum.jpg`;
+   */
   name: string;
+  /**
+   * E.g: `/basic/src/utils/sum.ts`
+   */
   path: string;
+  /**
+   * E.g: `/a/b.jpg` => `jpg`;
+   */
   ext?: string;
   size?: number;
-  isDirectory?: boolean;
 }
+
 export default function recursiveReaddirFiles(rootPath: string, options?: RecursiveReaddirFilesOptions): Promise<IFileDirStat[]>;
+
 /**
  * Get ext
  * @param {String} filePath `/a/b.jpg` => `jpg`
  */
 export declare const getExt: (filePath: string) => string;
-
 ```
 
 ## License

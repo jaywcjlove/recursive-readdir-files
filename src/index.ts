@@ -2,21 +2,37 @@ import fs from 'fs';
 import path from 'path';
 
 export interface RecursiveReaddirFilesOptions {
-  ignored?: RegExp
+  /**
+   * Ignore files
+   * @example `/\/(node_modules|\.git)/`
+   */
+  ignored?: RegExp;
+  /**
+   * Specifies a list of `glob` patterns that match files to be included in compilation. 
+   * @example `/(\.json)$/`
+   */
+  include?: RegExp;
+  /**
+   * Specifies a list of files to be excluded from compilation.
+   * @example `/(package\.json)$/`
+   */
+  exclude?: RegExp;
 }
 
-/**
- * IFileDirStat
- * @param {string} name E.g: `sum.ts`;
- * @param {string} path E.g: `/basic/src/utils/sum.ts`
- * @param {string} outputPath E.g: `/basic/src/utils/sum.js`
- */
  export interface IFileDirStat {
+  /**
+   * @example `/a/sum.jpg` => `sum.jpg`
+   */
   name: string;
+  /**
+   * @example `/basic/src/utils/sum.ts`
+   */
   path: string;
+  /**
+   * @example `/a/b.jpg` => `jpg`
+   */
   ext?: string;
   size?: number;
-  isDirectory?: boolean;
 }
 
 export default function recursiveReaddirFiles(rootPath: string, options: RecursiveReaddirFilesOptions = {}): Promise<IFileDirStat[]> {
@@ -24,18 +40,24 @@ export default function recursiveReaddirFiles(rootPath: string, options: Recursi
 }
 
 async function getFiles(rootPath: string, options: RecursiveReaddirFilesOptions = {}, files: IFileDirStat[] = []): Promise<IFileDirStat[]> {
-  const { ignored } = options;
+  const { ignored, include, exclude } = options;
   const filesData = await fs.promises.readdir(rootPath);
   const fileDir: IFileDirStat[] = filesData.map((file) => ({
     name: file,
     path: path.join(rootPath, file),
   })).filter(item => {
+    if (include && include.test(item.path)) {
+      return true;
+    }
+    if (exclude && exclude.test(item.path)) {
+      return false
+    }
     if (!ignored || !ignored.test(item.path)) { 
       return true;
     }
     return false;
   });
-  
+
   await Promise.all(
     fileDir.map(async (item: IFileDirStat) => {
       const stat = await fs.promises.stat(item.path);
