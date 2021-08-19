@@ -45,7 +45,7 @@ jobs:
           [![](https://img.shields.io/badge/Open%20in-unpkg-blue)](https://uiwjs.github.io/npm-unpkg/#/pkg/recursive-readdir-files@${{steps.changelog.outputs.version}}/file/README.md)
 
           ```bash
-          npm i recursive-readdir-files@${{steps.changelog.outputs.version}}
+          npm i recursive-readdir-files@${{steps.changelog.outputs.versionNumber}}
           ```
 
           ${{ steps.changelog.outputs.compareurl }}
