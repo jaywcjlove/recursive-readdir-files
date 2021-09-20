@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "start": "node lib/index.js",
-    "watch": "tsbb watch --no-esm --disable-babel ",
-    "build": "tsbb build --no-esm --disable-babel ",
+    "watch": "tsbb watch --disable-babel ",
+    "build": "tsbb build --disable-babel ",
     "test": "tsbb test",
     "coverage": "tsbb test --coverage"
   },
@@ -24,6 +24,12 @@
     "recursive-readdir-files",
     "files"
   ],
+  "jest": {
+    "coverageReporters": [
+      "lcov",
+      "json-summary"
+    ]
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "27.0.1",
