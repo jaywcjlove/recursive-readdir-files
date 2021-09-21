@@ -32,7 +32,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "27.0.1",
+    "@types/jest": "27.0.2",
     "@types/node": "16.7.10",
     "tsbb": "3.2.1"
   }
