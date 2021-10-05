@@ -19,19 +19,21 @@
             <path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
           </svg></a>recursive-readdir-files</h1><!--rehype:style=display: flex; height: 230px; align-items: center; justify-content: center; font-size: 38px; background: #f6f8fa; border: 0; border-radius: 5px;-->
       <p>
-        <a href="https://jaywcjlove.github.io/recursive-readdir-files/lcov-report/"><img src="https://jaywcjlove.github.io/recursive-readdir-files/badges.svg" alt="Coverage Status"></a> <a href="https://www.npmjs.com/package/recursive-readdir-files"><img src="https://img.shields.io/npm/v/recursive-readdir-files.svg" alt="npm version"></a>
+        <a href="https://jaywcjlove.github.io/recursive-readdir-files/lcov-report/"><img src="https://jaywcjlove.github.io/recursive-readdir-files/badges.svg" alt="Coverage Status"></a>
+        <a href="https://www.npmjs.com/package/recursive-readdir-files"><img src="https://img.shields.io/npm/v/recursive-readdir-files.svg" alt="npm version"></a>
         <a href="https://www.npmjs.com/package/recursive-readdir-files"><img src="https://img.shields.io/npm/dm/recursive-readdir-files.svg?style=flat" alt="NPM Download"></a>
       </p>
       <p>Node.js module to list all files in a directory or any subdirectories.</p>
       <h2 id="installation"><a class="anchor" aria-hidden="true" tabindex="-1" href="#installation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
             <path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
           </svg></a>Installation</h2>
+      <p>This package is <a href="https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c">ESM only</a>: Node 12+ is needed to use it and it must be <code>import</code> instead of <code>require</code>.</p>
       <pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> recursive-readdir-files
 </code></pre>
       <h2 id="usage"><a class="anchor" aria-hidden="true" tabindex="-1" href="#usage"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
             <path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
           </svg></a>Usage</h2>
-      <pre class="language-js"><code class="language-js"><span class="token keyword">const</span> recursiveReaddirFiles <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"recursive-readdir-files"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <pre class="language-js"><code class="language-js"><span class="token keyword module">import</span> <span class="token imports">recursiveReaddirFiles</span> <span class="token keyword module">from</span> <span class="token string">'recursive-readdir-files'</span><span class="token punctuation">;</span>
 
 <span class="token function">recursiveReaddirFiles</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span><span class="token method function property-access">cwd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
   ignored<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\/(node_modules|\.git)</span><span class="token regex-delimiter">/</span></span>
