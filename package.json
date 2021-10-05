@@ -27,6 +27,6 @@
     "files"
   ],
   "devDependencies": {
-    "tsbb": "3.3.7"
+    "tsbb": "3.4.1"
   }
 }
