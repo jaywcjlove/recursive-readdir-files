@@ -39,6 +39,8 @@ export default function recursiveReaddirFiles(rootPath: string, options: Recursi
   return getFiles(rootPath, options);
 }
 
+export { recursiveReaddirFiles };
+
 async function getFiles(rootPath: string, options: RecursiveReaddirFilesOptions = {}, files: IFileDirStat[] = []): Promise<IFileDirStat[]> {
   const { ignored, include, exclude } = options;
   const filesData = await fs.promises.readdir(rootPath);
@@ -81,3 +83,8 @@ async function getFiles(rootPath: string, options: RecursiveReaddirFilesOptions 
  * @param {String} filePath `/a/b.jpg` => `jpg`
  */
  export const getExt = (filePath: string) => path.extname(filePath).replace(/^\./, '').toLowerCase();
+
+/** CommonJS default export hack */
+if (typeof module === 'object' && typeof module.exports === 'object') {
+  module.exports = Object.assign(module.exports.default, module.exports);
+}

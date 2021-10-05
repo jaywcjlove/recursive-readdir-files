@@ -1,15 +1,17 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "target": "ESNext",
+    "module": "ES2020",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "declaration": true,
-    "target": "ES2017",
     "noImplicitAny": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "lib",
     "baseUrl": "."
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }
