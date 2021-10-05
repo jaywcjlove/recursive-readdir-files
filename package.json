@@ -6,7 +6,10 @@
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
-  "exports": "lib/index.js",
+  "main": "lib/index.js",
+  "exports": {
+    "exports": "lib/index.js"
+  },
   "scripts": {
     "start": "node lib/index.js",
     "watch": "tsbb watch --disable-babel",
@@ -28,7 +31,9 @@
     "recursive-readdir-files",
     "files"
   ],
-  "node": "^12.20.0 || ^14.13.1 || >=16.0.0",
+  "engines": {
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+  },
   "devDependencies": {
     "tsbb": "3.4.1"
   }
