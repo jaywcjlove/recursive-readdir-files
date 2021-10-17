@@ -50,19 +50,16 @@ async function getFiles(rootPath: string, options: RecursiveReaddirFilesOptions 
     name: file,
     path: path.join(rootPath, file),
   })).filter(item => {
-    if (filter && typeof filter === 'function') {
-      return filter(item);
-    }
     if (include && include.test(item.path)) {
       return true;
     }
     if (exclude && exclude.test(item.path)) {
       return false
     }
-    if (!ignored || !ignored.test(item.path)) { 
-      return true;
+    if (ignored) {
+      return !ignored.test(item.path)
     }
-    return false;
+    return true;
   });
 
   await Promise.all(
@@ -79,7 +76,12 @@ async function getFiles(rootPath: string, options: RecursiveReaddirFilesOptions 
       }
     }),
   );
-  return files;
+  return files.filter((item) => {
+    if (filter && typeof filter === 'function') {
+      return filter(item);
+    }
+    return true
+  });
 }
 
 

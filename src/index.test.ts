@@ -3,7 +3,7 @@
 import path from 'path';
 import recursiveReaddirFiles from './';
 
-it('Recursive Readdir Files', async () => {
+it('ignored test case', async () => {
   const files = await recursiveReaddirFiles(process.cwd(), {
     ignored: /\/(node_modules|coverage|\.git)/
   });
@@ -11,7 +11,7 @@ it('Recursive Readdir Files', async () => {
   expect(Object.keys(files[0])).toEqual(['name', 'path', 'size', 'ext']);
 });
 
-it('Recursive Readdir Files', async () => {
+it('ignored/exclude/include test case', async () => {
   const files = await recursiveReaddirFiles(process.cwd(), {
     ignored: /\/(node_modules|coverage|\.git)/,
     exclude: /(\.json)$/,
@@ -42,6 +42,7 @@ it('Recursive Readdir Files. try catch', async () => {
 
 it('filter options test case', async () => {
   const files = await recursiveReaddirFiles(process.cwd(), {
+    ignored: /\/(node_modules|\.git|(coverage))/,
     filter: (item) => /(.md)/.test(item.path)
   });
   expect(files.length).toBe(1);
