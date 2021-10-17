@@ -21,7 +21,7 @@ export interface RecursiveReaddirFilesOptions {
   filter?: (item: IFileDirStat) => boolean;
 }
 
- export interface IFileDirStat {
+ export interface IFileDirStat extends Partial<fs.Stats> {
   /**
    * @example `/a/sum.jpg` => `sum.jpg`
    */
@@ -34,7 +34,6 @@ export interface RecursiveReaddirFilesOptions {
    * @example `/a/b.jpg` => `jpg`
    */
   ext?: string;
-  size?: number;
 }
 
 export default function recursiveReaddirFiles(rootPath: string, options: RecursiveReaddirFilesOptions = {}): Promise<IFileDirStat[]> {
@@ -72,6 +71,7 @@ async function getFiles(rootPath: string, options: RecursiveReaddirFilesOptions 
         files = files.concat(arr);
       } else if (stat.isFile()) {
         item.ext = await getExt(item.path);
+        item = { ...stat, ...item }
         files.push(item);
       }
     }),

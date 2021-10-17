@@ -8,7 +8,7 @@ it('ignored test case', async () => {
     ignored: /\/(node_modules|coverage|\.git)/
   });
   expect(files.length).toBe(10);
-  expect(Object.keys(files[0])).toEqual(['name', 'path', 'size', 'ext']);
+  expect(Object.keys(files[0])).toEqual(['dev', 'mode', 'nlink', 'uid', 'gid', 'rdev', 'blksize', 'ino', 'size', 'blocks', 'atimeMs', 'mtimeMs', 'ctimeMs', 'birthtimeMs', 'atime', 'mtime', 'ctime', 'birthtime', 'name', 'path', 'ext',]);
 });
 
 it('ignored/exclude/include test case', async () => {
@@ -22,7 +22,7 @@ it('ignored/exclude/include test case', async () => {
   expect(arrs[0]).toEqual('package.json');
   const arrs2 = files.filter(item => /renovate\.json$/.test(item.path)).map(item => item.name);
   expect(arrs2.length).toEqual(0);
-  expect(Object.keys(files[0])).toEqual(['name', 'path', 'size', 'ext']);
+  expect(Object.keys(files[0])).toEqual(['dev', 'mode', 'nlink', 'uid', 'gid', 'rdev', 'blksize', 'ino', 'size', 'blocks', 'atimeMs', 'mtimeMs', 'ctimeMs', 'birthtimeMs', 'atime', 'mtime', 'ctime', 'birthtime', 'name', 'path', 'ext',]);
 });
 
 it('Recursive Readdir Files, options', async () => {
