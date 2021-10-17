@@ -56,7 +56,7 @@
    */</span>
   ignored<span class="token operator">?</span><span class="token operator">:</span> <span class="token known-class-name class-name">RegExp</span><span class="token punctuation">;</span>
   <span class="token doc-comment comment">/**
-   * Specifies a list of `glob` patterns that match files to be included in compilation. 
+   * Specifies a list of `glob` patterns that match files to be included in compilation.
    * <span class="token keyword">@example</span> `/(\.json)$/`
    */</span>
   include<span class="token operator">?</span><span class="token operator">:</span> <span class="token known-class-name class-name">RegExp</span><span class="token punctuation">;</span>
@@ -65,6 +65,8 @@
    * <span class="token keyword">@example</span> `/(package\.json)$/`
    */</span>
   exclude<span class="token operator">?</span><span class="token operator">:</span> <span class="token known-class-name class-name">RegExp</span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/** Provide filtering methods to filter data. */</span>
+  filter<span class="token operator">?</span><span class="token operator">:</span> <span class="token punctuation">(</span>item<span class="token operator">:</span> <span class="token maybe-class-name">IFileDirStat</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
       <h2 id="result"><a class="anchor" aria-hidden="true" tabindex="-1" href="#result"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
@@ -72,22 +74,21 @@
           </svg></a>Result</h2>
       <pre class="language-ts"><code class="language-ts"><span class="token keyword module">export</span> <span class="token keyword">interface</span> <span class="token class-name"><span class="token maybe-class-name">IFileDirStat</span></span> <span class="token punctuation">{</span>
   <span class="token doc-comment comment">/**
-   * E.g: `/a/sum.jpg` => `sum.jpg`;
+   * <span class="token keyword">@example</span> `/a/sum.jpg` => `sum.jpg`
    */</span>
   name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   <span class="token doc-comment comment">/**
-   * E.g: `/basic/src/utils/sum.ts`
+   * <span class="token keyword">@example</span> `/basic/src/utils/sum.ts`
    */</span>
   path<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   <span class="token doc-comment comment">/**
-   * E.g: `/a/b.jpg` => `jpg`;
+   * <span class="token keyword">@example</span> `/a/b.jpg` => `jpg`
    */</span>
   ext<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   size<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-
 <span class="token keyword module">export</span> <span class="token keyword module">default</span> <span class="token keyword">function</span> <span class="token function">recursiveReaddirFiles</span><span class="token punctuation">(</span>rootPath<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> options<span class="token operator">?</span><span class="token operator">:</span> <span class="token maybe-class-name">RecursiveReaddirFilesOptions</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token known-class-name class-name">Promise</span><span class="token operator">&#x3C;</span><span class="token maybe-class-name">IFileDirStat</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span><span class="token punctuation">;</span>
-
+<span class="token keyword module">export</span> <span class="token exports"><span class="token punctuation">{</span> recursiveReaddirFiles <span class="token punctuation">}</span></span><span class="token punctuation">;</span>
 <span class="token doc-comment comment">/**
  * Get ext
  * <span class="token keyword">@param</span> <span class="token punctuation">{</span>String<span class="token punctuation">}</span> filePath `/a/b.jpg` => `jpg`
