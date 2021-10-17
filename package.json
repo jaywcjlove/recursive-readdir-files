@@ -9,11 +9,13 @@
 	"types": "./lib/index.d.ts",
   "exports": "./lib/index.js",
   "scripts": {
+    "prepare": "husky install",
     "start": "node lib/index.js",
     "watch": "tsbb watch --disable-babel",
     "build": "tsbb build --disable-babel",
     "test": "tsbb test",
-    "coverage": "tsbb test --coverage"
+    "coverage": "tsbb test --coverage",
+    "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\""
   },
   "repository": {
     "type": "git",
@@ -32,7 +34,13 @@
   "engines": {
     "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   },
+  "lint-staged": {
+    "*.{js,jsx,tsx,ts,less,md,json}": "prettier --write"
+  },
   "devDependencies": {
+    "husky": "7.0.2",
+    "lint-staged": "11.1.2",
+    "prettier": "2.3.2",
     "tsbb": "3.4.4"
   }
 }
