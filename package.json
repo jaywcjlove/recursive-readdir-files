@@ -6,6 +6,7 @@
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
+	"types": "./lib/index.d.ts",
   "exports": "./lib/index.js",
   "scripts": {
     "start": "node lib/index.js",
