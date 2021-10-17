@@ -8,7 +8,7 @@ export interface RecursiveReaddirFilesOptions {
    */
   ignored?: RegExp;
   /**
-   * Specifies a list of `glob` patterns that match files to be included in compilation. 
+   * Specifies a list of `glob` patterns that match files to be included in compilation.
    * @example `/(\.json)$/`
    */
   include?: RegExp;
@@ -21,7 +21,7 @@ export interface RecursiveReaddirFilesOptions {
   filter?: (item: IFileDirStat) => boolean;
 }
 
- export interface IFileDirStat extends Partial<fs.Stats> {
+export interface IFileDirStat extends Partial<fs.Stats> {
   /**
    * @example `/a/sum.jpg` => `sum.jpg`
    */
@@ -36,30 +36,39 @@ export interface RecursiveReaddirFilesOptions {
   ext?: string;
 }
 
-export default function recursiveReaddirFiles(rootPath: string, options: RecursiveReaddirFilesOptions = {}): Promise<IFileDirStat[]> {
+export default function recursiveReaddirFiles(
+  rootPath: string,
+  options: RecursiveReaddirFilesOptions = {},
+): Promise<IFileDirStat[]> {
   return getFiles(rootPath, options);
 }
 
 export { recursiveReaddirFiles };
 
-async function getFiles(rootPath: string, options: RecursiveReaddirFilesOptions = {}, files: IFileDirStat[] = []): Promise<IFileDirStat[]> {
+async function getFiles(
+  rootPath: string,
+  options: RecursiveReaddirFilesOptions = {},
+  files: IFileDirStat[] = [],
+): Promise<IFileDirStat[]> {
   const { ignored, include, exclude, filter } = options;
   const filesData = await fs.promises.readdir(rootPath);
-  const fileDir: IFileDirStat[] = filesData.map((file) => ({
-    name: file,
-    path: path.join(rootPath, file),
-  })).filter(item => {
-    if (include && include.test(item.path)) {
+  const fileDir: IFileDirStat[] = filesData
+    .map((file) => ({
+      name: file,
+      path: path.join(rootPath, file),
+    }))
+    .filter((item) => {
+      if (include && include.test(item.path)) {
+        return true;
+      }
+      if (exclude && exclude.test(item.path)) {
+        return false;
+      }
+      if (ignored) {
+        return !ignored.test(item.path);
+      }
       return true;
-    }
-    if (exclude && exclude.test(item.path)) {
-      return false
-    }
-    if (ignored) {
-      return !ignored.test(item.path)
-    }
-    return true;
-  });
+    });
 
   await Promise.all(
     fileDir.map(async (item: IFileDirStat) => {
@@ -71,7 +80,7 @@ async function getFiles(rootPath: string, options: RecursiveReaddirFilesOptions 
         files = files.concat(arr);
       } else if (stat.isFile()) {
         item.ext = await getExt(item.path);
-        item = { ...stat, ...item }
+        item = { ...stat, ...item };
         files.push(item);
       }
     }),
@@ -80,16 +89,15 @@ async function getFiles(rootPath: string, options: RecursiveReaddirFilesOptions 
     if (filter && typeof filter === 'function') {
       return filter(item);
     }
-    return true
+    return true;
   });
 }
-
 
 /**
  * Get ext
  * @param {String} filePath `/a/b.jpg` => `jpg`
  */
- export const getExt = (filePath: string) => path.extname(filePath).replace(/^\./, '').toLowerCase();
+export const getExt = (filePath: string) => path.extname(filePath).replace(/^\./, '').toLowerCase();
 
 /** CommonJS default export hack */
 if (typeof module === 'object' && typeof module.exports === 'object') {
