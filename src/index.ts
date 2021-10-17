@@ -17,6 +17,8 @@ export interface RecursiveReaddirFilesOptions {
    * @example `/(package\.json)$/`
    */
   exclude?: RegExp;
+  /** Provide filtering methods to filter data. */
+  filter?: (item: IFileDirStat) => boolean;
 }
 
  export interface IFileDirStat {
@@ -42,12 +44,15 @@ export default function recursiveReaddirFiles(rootPath: string, options: Recursi
 export { recursiveReaddirFiles };
 
 async function getFiles(rootPath: string, options: RecursiveReaddirFilesOptions = {}, files: IFileDirStat[] = []): Promise<IFileDirStat[]> {
-  const { ignored, include, exclude } = options;
+  const { ignored, include, exclude, filter } = options;
   const filesData = await fs.promises.readdir(rootPath);
   const fileDir: IFileDirStat[] = filesData.map((file) => ({
     name: file,
     path: path.join(rootPath, file),
   })).filter(item => {
+    if (filter && typeof filter === 'function') {
+      return filter(item);
+    }
     if (include && include.test(item.path)) {
       return true;
     }

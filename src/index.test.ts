@@ -39,3 +39,11 @@ it('Recursive Readdir Files. try catch', async () => {
     expect(error.message).toEqual('The "path" argument must be of type string or an instance of Buffer or URL. Received undefined')
   }
 });
+
+it('filter options test case', async () => {
+  const files = await recursiveReaddirFiles(process.cwd(), {
+    filter: (item) => /(.md)/.test(item.path)
+  });
+  expect(files.length).toBe(1);
+  expect(files[0].name).toEqual('README.md');
+});

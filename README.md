@@ -43,7 +43,7 @@ export interface RecursiveReaddirFilesOptions {
    */
   ignored?: RegExp;
   /**
-   * Specifies a list of `glob` patterns that match files to be included in compilation. 
+   * Specifies a list of `glob` patterns that match files to be included in compilation.
    * @example `/(\.json)$/`
    */
   include?: RegExp;
@@ -52,6 +52,8 @@ export interface RecursiveReaddirFilesOptions {
    * @example `/(package\.json)$/`
    */
   exclude?: RegExp;
+  /** Provide filtering methods to filter data. */
+  filter?: (item: IFileDirStat) => boolean;
 }
 ```
 
@@ -60,22 +62,21 @@ export interface RecursiveReaddirFilesOptions {
 ```ts
 export interface IFileDirStat {
   /**
-   * E.g: `/a/sum.jpg` => `sum.jpg`;
+   * @example `/a/sum.jpg` => `sum.jpg`
    */
   name: string;
   /**
-   * E.g: `/basic/src/utils/sum.ts`
+   * @example `/basic/src/utils/sum.ts`
    */
   path: string;
   /**
-   * E.g: `/a/b.jpg` => `jpg`;
+   * @example `/a/b.jpg` => `jpg`
    */
   ext?: string;
   size?: number;
 }
-
 export default function recursiveReaddirFiles(rootPath: string, options?: RecursiveReaddirFilesOptions): Promise<IFileDirStat[]>;
-
+export { recursiveReaddirFiles };
 /**
  * Get ext
  * @param {String} filePath `/a/b.jpg` => `jpg`
