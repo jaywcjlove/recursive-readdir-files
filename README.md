@@ -71,7 +71,8 @@ export interface RecursiveReaddirFilesOptions {
 ## Result
 
 ```ts
-export interface IFileDirStat {
+import fs from 'node:fs';
+export interface IFileDirStat extends Partial<fs.Stats> {
   /**
    * @example `/a/sum.jpg` => `sum.jpg`
    */
@@ -84,7 +85,6 @@ export interface IFileDirStat {
    * @example `/a/b.jpg` => `jpg`
    */
   ext?: string;
-  size?: number;
 }
 export default function recursiveReaddirFiles(rootPath: string, options?: RecursiveReaddirFilesOptions): Promise<IFileDirStat[]>;
 export { recursiveReaddirFiles };
