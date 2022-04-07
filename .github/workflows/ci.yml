@@ -29,6 +29,7 @@ jobs:
     - name: Converts Markdown to HTML
       uses: jaywcjlove/markdown-to-html-cli@main
       with:
+        github-corners: https://github.com/jaywcjlove/recursive-readdir-files
         output: coverage/index.html
 
     - name: Create Tag
