@@ -17,6 +17,16 @@ This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908
 npm install recursive-readdir-files
 ```
 
+If you still want to use in CommonJS, you can use dynamic `import()` to load.
+
+```typescript
+const recursiveReaddirFiles = await import('recursive-readdir-files');
+
+// Fix compiling in typescript.
+// https://github.com/microsoft/TypeScript/issues/43329#issuecomment-922544562
+const { getExt, recursiveReaddirFiles } = await (Function('return import("recursive-readdir-files")')()) as Promise<typeof import("recursive-readdir-files")>;
+```
+
 ## Usage
 
 ```js
