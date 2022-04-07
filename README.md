@@ -32,16 +32,39 @@ const { getExt, recursiveReaddirFiles } = await (Function('return import("recurs
 ```js
 import recursiveReaddirFiles from 'recursive-readdir-files';
 
-recursiveReaddirFiles(process.cwd(), {
+const files = await recursiveReaddirFiles(process.cwd(), {
   ignored: /\/(node_modules|\.git)/
-})
-.then((files) => {
-  // `files` is an array
-  console.log(files);
-})
-.catch((error) => {
-  console.error("something exploded", error);
 });
+
+// `files` is an array
+console.log(files);
+// ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+// [
+//   {
+//     dev: 16777233,
+//     mode: 33188,
+//     nlink: 1,
+//     uid: 501,
+//     gid: 20,
+//     rdev: 0,
+//     blksize: 4096,
+//     ino: 145023089,
+//     size: 89,
+//     blocks: 8,
+//     atimeMs: 1649303678077.934,
+//     mtimeMs: 1649303676847.1777,
+//     ctimeMs: 1649303676847.1777,
+//     birthtimeMs: 1649301118132.6782,
+//     atime: 2022-04-07T03:54:38.078Z,
+//     mtime: 2022-04-07T03:54:36.847Z,
+//     ctime: 2022-04-07T03:54:36.847Z,
+//     birthtime: 2022-04-07T03:11:58.133Z,
+//     name: 'watch.ts',
+//     path: '/Users/xxx/watch.ts',
+//     ext: 'ts'
+//   },
+//   // ...
+// ]
 ```
 
 ## Options
