@@ -85,6 +85,16 @@ export { recursiveReaddirFiles };
 export declare const getExt: (filePath: string) => string;
 ```
 
+## Contributors
+
+As always, thanks to our amazing contributors!
+
+<a href="https://github.com/jaywcjlove/recursive-readdir-files/graphs/contributors">
+  <img src="https://jaywcjlove.github.io/recursive-readdir-files/CONTRIBUTORS.svg" />
+</a>
+
+Made with [action-contributors](https://github.com/jaywcjlove/github-action-contributors).
+
 ## License
 
 Licensed under the MIT License.
