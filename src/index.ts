@@ -36,11 +36,14 @@ export interface IFileDirStat extends Partial<fs.Stats> {
   ext?: string;
 }
 
+type Callback = (filepath: string, stat: IFileDirStat, childs: IFileDirStat[]) => void;
+
 export default function recursiveReaddirFiles(
   rootPath: string,
   options: RecursiveReaddirFilesOptions = {},
+  callback?: Callback,
 ): Promise<IFileDirStat[]> {
-  return getFiles(rootPath, options);
+  return getFiles(rootPath, options, [], callback);
 }
 
 export { recursiveReaddirFiles };
@@ -49,6 +52,7 @@ async function getFiles(
   rootPath: string,
   options: RecursiveReaddirFilesOptions = {},
   files: IFileDirStat[] = [],
+  callback?: Callback,
 ): Promise<IFileDirStat[]> {
   const { ignored, include, exclude, filter } = options;
   const filesData = await fs.promises.readdir(rootPath);
@@ -69,22 +73,38 @@ async function getFiles(
       }
       return true;
     });
-
-  await Promise.all(
+  if (callback) {
     fileDir.map(async (item: IFileDirStat) => {
-      const stat = await fs.promises.stat(item.path);
-      item.size = stat.size;
-      item.ext = '';
+      const stat = (await fs.promises.stat(item.path)) as IFileDirStat;
+      stat.ext = '';
+      let childs: IFileDirStat[] = [];
       if (stat.isDirectory()) {
-        const arr = await getFiles(item.path, options);
-        files = files.concat(arr);
+        const arr = await getFiles(item.path, options, []);
+        childs = childs.concat(arr);
       } else if (stat.isFile()) {
-        item.ext = await getExt(item.path);
-        item = { ...stat, ...item };
-        files.push(item);
+        stat.ext = getExt(item.path);
+        stat.name = item.name;
+        stat.path = item.path;
       }
-    }),
-  );
+      callback(item.path, stat, childs);
+    });
+  } else {
+    await Promise.all(
+      fileDir.map(async (item: IFileDirStat) => {
+        const stat = await fs.promises.stat(item.path);
+        item.size = stat.size;
+        item.ext = '';
+        if (stat.isDirectory()) {
+          const arr = await getFiles(item.path, options, []);
+          files = files.concat(arr);
+        } else if (stat.isFile()) {
+          item.ext = getExt(item.path);
+          item = { ...stat, ...item };
+          files.push(item);
+        }
+      }),
+    );
+  }
   return files.filter((item) => {
     if (filter && typeof filter === 'function') {
       return filter(item);
