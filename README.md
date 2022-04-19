@@ -72,7 +72,7 @@ Or
 ```js
 recursiveReaddirFiles(process.cwd(), {
   ignored: /\/(node_modules|\.git)/
-}, (filepath, state, childs) => {
+}, (filepath, state) => {
   console.log(filepath);
   // 👉 /Users/xxx/watch.ts
   console.log(state.isFile());      // 👉 true
