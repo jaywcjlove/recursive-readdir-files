@@ -91,16 +91,17 @@ async function getFiles(
   } else {
     await Promise.all(
       fileDir.map(async (item: IFileDirStat) => {
-        const stat = await fs.promises.stat(item.path);
-        item.size = stat.size;
-        item.ext = '';
+        const stat = (await fs.promises.stat(item.path)) as IFileDirStat;
+        // item.size = stat.size;
+        stat.ext = '';
         if (stat.isDirectory()) {
           const arr = await getFiles(item.path, options, []);
           files = files.concat(arr);
         } else if (stat.isFile()) {
-          item.ext = getExt(item.path);
-          item = { ...stat, ...item };
-          files.push(item);
+          stat.ext = getExt(item.path);
+          stat.name = item.name;
+          stat.path = item.path;
+          files.push(stat);
         }
       }),
     );

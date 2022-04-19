@@ -27,9 +27,9 @@ it('ignored test case', async () => {
     'mtime',
     'ctime',
     'birthtime',
+    'ext',
     'name',
     'path',
-    'ext',
   ]);
 });
 
@@ -40,8 +40,10 @@ it('ignored/exclude/include test case', async () => {
     include: /(package\.json)$/,
   });
   expect(files.length).toBe(9);
+  expect(typeof files[0].isFile === 'function').toBeTruthy();
   const arrs = files.filter((item) => /package\.json$/.test(item.path)).map((item) => item.name);
   expect(arrs[0]).toEqual('package.json');
+
   const arrs2 = files.filter((item) => /renovate\.json$/.test(item.path)).map((item) => item.name);
   expect(arrs2.length).toEqual(0);
   expect(Object.keys(files[0])).toEqual([
@@ -63,9 +65,9 @@ it('ignored/exclude/include test case', async () => {
     'mtime',
     'ctime',
     'birthtime',
+    'ext',
     'name',
     'path',
-    'ext',
   ]);
 });
 
