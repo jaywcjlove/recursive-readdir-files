@@ -254,7 +254,7 @@ console.log(files);
     <p>Or</p>
     <pre class="language-js"><code class="language-js code-highlight"><span class="code-line"><span class="token function">recursiveReaddirFiles</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span><span class="token method function property-access">cwd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
 </span><span class="code-line">  <span class="token literal-property property">ignored</span><span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex"><span class="token escape">\/</span><span class="token group punctuation">(</span>node_modules<span class="token alternation keyword">|</span><span class="token special-escape escape">\.</span>git<span class="token group punctuation">)</span></span><span class="token regex-delimiter">/</span></span>
-</span><span class="code-line"><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">filepath<span class="token punctuation">,</span> state<span class="token punctuation">,</span> childs</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> <span class="token punctuation">{</span>
+</span><span class="code-line"><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">filepath<span class="token punctuation">,</span> state</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> <span class="token punctuation">{</span>
 </span><span class="code-line">  <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>filepath<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </span><span class="code-line">  <span class="token comment">// 👉 /Users/xxx/watch.ts</span>
 </span><span class="code-line">  <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>state<span class="token punctuation">.</span><span class="token method function property-access">isFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// 👉 true</span>
@@ -287,7 +287,7 @@ console.log(files);
 </span><span class="code-line"><span class="token punctuation">}</span><span class="token punctuation">)</span>
 </span></code><div onclick="copied(this)" data-code="recursiveReaddirFiles(process.cwd(), {
   ignored: /\/(node_modules|\.git)/
-}, (filepath, state, childs) => {
+}, (filepath, state) => {
   console.log(filepath);
   // 👉 /Users/xxx/watch.ts
   console.log(state.isFile());      // 👉 true
