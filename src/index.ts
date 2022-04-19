@@ -36,7 +36,7 @@ export interface IFileDirStat extends Partial<fs.Stats> {
   ext?: string;
 }
 
-type Callback = (filepath: string, stat: IFileDirStat, childs: IFileDirStat[]) => void;
+type Callback = (filepath: string, stat: IFileDirStat) => void;
 
 export default function recursiveReaddirFiles(
   rootPath: string,
@@ -77,16 +77,14 @@ async function getFiles(
     fileDir.map(async (item: IFileDirStat) => {
       const stat = (await fs.promises.stat(item.path)) as IFileDirStat;
       stat.ext = '';
-      let childs: IFileDirStat[] = [];
       if (stat.isDirectory()) {
-        const arr = await getFiles(item.path, options, []);
-        childs = childs.concat(arr);
+        getFiles(item.path, options, [], callback);
       } else if (stat.isFile()) {
         stat.ext = getExt(item.path);
         stat.name = item.name;
         stat.path = item.path;
       }
-      callback(item.path, stat, childs);
+      callback(item.path, stat);
     });
   } else {
     await Promise.all(

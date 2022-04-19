@@ -115,13 +115,10 @@ it('Recursive Readdir Files, callback', async () => {
       exclude: /(\.json)$/,
       include: /(package\.json)$/,
     },
-    (file, stat, childs) => {
+    (file, stat) => {
+      expect(typeof file === 'string').toBeTruthy();
       expect(typeof stat.isFile === 'function').toBeTruthy();
       expect(typeof stat.isDirectory === 'function').toBeTruthy();
-      expect(Array.isArray(childs)).toBeTruthy();
-      if (stat.isDirectory() && file.endsWith('src')) {
-        expect(childs.length).toEqual(2);
-      }
     },
   );
   expect(files.length).toBe(0);

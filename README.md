@@ -147,7 +147,7 @@ export interface IFileDirStat extends Partial<fs.Stats> {
    */
   ext?: string;
 }
-declare type Callback = (filepath: string, stat: IFileDirStat, childs: IFileDirStat[]) => void;
+declare type Callback = (filepath: string, stat: IFileDirStat) => void;
 export default function recursiveReaddirFiles(rootPath: string, options?: RecursiveReaddirFilesOptions, callback?: Callback): Promise<IFileDirStat[]>;
 export { recursiveReaddirFiles };
 /**
