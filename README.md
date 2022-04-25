@@ -150,6 +150,7 @@ export interface IFileDirStat extends Partial<fs.Stats> {
 declare type Callback = (filepath: string, stat: IFileDirStat) => void;
 export default function recursiveReaddirFiles(rootPath: string, options?: RecursiveReaddirFilesOptions, callback?: Callback): Promise<IFileDirStat[]>;
 export { recursiveReaddirFiles };
+export declare const getStat: (filepath: string) => Promise<IFileDirStat>;
 /**
  * Get ext
  * @param {String} filePath `/a/b.jpg` => `jpg`

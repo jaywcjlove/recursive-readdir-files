@@ -1,7 +1,7 @@
 /// <reference types="jest" />
 
 import path from 'path';
-import recursiveReaddirFiles from './';
+import recursiveReaddirFiles, { getStat } from './';
 
 it('ignored test case', async () => {
   const files = await recursiveReaddirFiles(process.cwd(), {
@@ -143,4 +143,11 @@ it('filter options test case', async () => {
   });
   expect(files.length).toBe(1);
   expect(files[0].name).toEqual('README.md');
+});
+
+it('getStat test case', async () => {
+  const stat = await getStat(path.resolve(process.cwd(), 'package.json'));
+  expect(stat.ext).toEqual('json');
+  expect(stat.name).toEqual('package.json');
+  expect(stat.path.endsWith('package.json')).toBeTruthy();
 });

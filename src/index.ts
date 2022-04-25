@@ -75,30 +75,20 @@ async function getFiles(
     });
   if (callback) {
     fileDir.map(async (item: IFileDirStat) => {
-      const stat = (await fs.promises.stat(item.path)) as IFileDirStat;
-      stat.ext = '';
+      const stat = await getStat(item.path);
       if (stat.isDirectory()) {
         getFiles(item.path, options, [], callback);
-      } else if (stat.isFile()) {
-        stat.ext = getExt(item.path);
-        stat.name = item.name;
-        stat.path = item.path;
       }
       callback(item.path, stat);
     });
   } else {
     await Promise.all(
       fileDir.map(async (item: IFileDirStat) => {
-        const stat = (await fs.promises.stat(item.path)) as IFileDirStat;
-        // item.size = stat.size;
-        stat.ext = '';
+        const stat = await getStat(item.path);
         if (stat.isDirectory()) {
           const arr = await getFiles(item.path, options, []);
           files = files.concat(arr);
         } else if (stat.isFile()) {
-          stat.ext = getExt(item.path);
-          stat.name = item.name;
-          stat.path = item.path;
           files.push(stat);
         }
       }),
@@ -111,6 +101,17 @@ async function getFiles(
     return true;
   });
 }
+
+export const getStat = async (filepath: string): Promise<IFileDirStat> => {
+  const stat = (await fs.promises.stat(filepath)) as IFileDirStat;
+  stat.ext = '';
+  if (stat.isFile()) {
+    stat.ext = getExt(filepath);
+    stat.name = path.basename(filepath);
+    stat.path = path.resolve(filepath);
+  }
+  return stat;
+};
 
 /**
  * Get ext
