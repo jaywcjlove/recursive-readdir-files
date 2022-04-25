@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/42</span>
+                <span class='fraction'>41/41</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.87% </span>
+                <span class="strong">87.09% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>26/31</span>
+                <span class='fraction'>27/31</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/41</span>
+                <span class='fraction'>40/40</span>
             </div>
         
             
@@ -187,7 +187,8 @@
 <a name='L122'></a><a href='#L122'>122</a>
 <a name='L123'></a><a href='#L123'>123</a>
 <a name='L124'></a><a href='#L124'>124</a>
-<a name='L125'></a><a href='#L125'>125</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -266,12 +267,7 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -279,14 +275,9 @@
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">46x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">38x</span>
-<span class="cline-any cline-yes">38x</span>
-<span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -301,11 +292,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">51x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -388,30 +390,20 @@ async function getFiles(
     });
   if (callback) {
     fileDir.map(async (item: IFileDirStat) =&gt; {
-      const stat = (await fs.promises.stat(item.path)) as IFileDirStat;
-      stat.ext = '';
+      const stat = await getStat(item.path);
       if (stat.isDirectory()) {
         getFiles(item.path, options, [], callback);
-      } else <span class="missing-if-branch" title="else path not taken" >E</span>if (stat.isFile()) {
-        stat.ext = getExt(item.path);
-        stat.name = item.name;
-        stat.path = item.path;
       }
       callback(item.path, stat);
     });
   } else {
     await Promise.all(
       fileDir.map(async (item: IFileDirStat) =&gt; {
-        const stat = (await fs.promises.stat(item.path)) as IFileDirStat;
-        // item.size = stat.size;
-        stat.ext = '';
+        const stat = await getStat(item.path);
         if (stat.isDirectory()) {
           const arr = await getFiles(item.path, options, []);
           files = files.concat(arr);
         } else <span class="missing-if-branch" title="else path not taken" >E</span>if (stat.isFile()) {
-          stat.ext = getExt(item.path);
-          stat.name = item.name;
-          stat.path = item.path;
           files.push(stat);
         }
       }),
@@ -424,6 +416,17 @@ async function getFiles(
     return true;
   });
 }
+&nbsp;
+export const getStat = async (filepath: string): Promise&lt;IFileDirStat&gt; =&gt; {
+  const stat = (await fs.promises.stat(filepath)) as IFileDirStat;
+  stat.ext = '';
+  if (stat.isFile()) {
+    stat.ext = getExt(filepath);
+    stat.name = path.basename(filepath);
+    stat.path = path.resolve(filepath);
+  }
+  return stat;
+};
 &nbsp;
 /**
  * Get ext
@@ -442,7 +445,7 @@ export const getExt = (filePath: string) =&gt; path.extname(filePath).replace(/^
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Tue Apr 19 2022 05:55:36 GMT+0000 (Coordinated Universal Time)
+                at Mon Apr 25 2022 17:14:13 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="prettify.js"></script>
         <script>
