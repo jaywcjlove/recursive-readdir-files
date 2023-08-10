@@ -27,11 +27,16 @@ jobs:
           output: coverage/CONTRIBUTORS.svg
           avatarSize: 42
 
-      - name: Converts Markdown to HTML
-        uses: jaywcjlove/markdown-to-html-cli@main
-        with:
-          github-corners: https://github.com/jaywcjlove/recursive-readdir-files
-          output: coverage/index.html
+      - name: Create idoc config.
+        run: |
+          cat > idoc.yml << EOF
+          site: "recursive-readdir-files {{version}}"
+          menus:
+            Home: index.html
+          EOF
+    
+      - run: npm install idoc@1.26.6 -g
+      - run: idoc --output="coverage"
 
       - name: Create Tag
         id: create_tag
