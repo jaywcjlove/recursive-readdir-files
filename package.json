@@ -6,8 +6,9 @@
   "funding": "https://jaywcjlove.github.io/#/sponsor",
   "license": "MIT",
   "sideEffects": false,
+  "main": "./lib/index.js",
   "type": "module",
-	"types": "./lib/index.d.ts",
+  "types": "./lib/index.d.ts",
   "exports": "./lib/index.js",
   "scripts": {
     "prepare": "husky install",
